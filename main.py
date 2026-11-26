@@ -14,6 +14,11 @@ LINE = (
     "orbiting people who leave me on read."
 )
 
+# The sealed scorer gates /output/entry.txt at 1-240 characters, one line,
+# not only whitespace. Fail loudly here instead of shipping an invalid entry.
+if not 1 <= len(LINE) <= 240 or "\n" in LINE or not LINE.strip():
+    raise SystemExit("entry line must be a single line of 1-240 characters")
+
 
 def main():
     os.umask(0o022)
